@@ -1,5 +1,6 @@
 import express from "express"; 
 import { Express } from "express"
+import dealRouters from "./Routes/dealsRoute.ts"
 import { type Request, type Response } from "express"
 import authRouter from "./Routes/authRoutes"
 import cors from "cors";
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/api/v1", authRouter)
 app.use("/api/v1", customerRouter);
+app.use("/api/v1", dealRouters);
 
 
 connectDb()
