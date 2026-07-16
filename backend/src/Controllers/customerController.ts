@@ -1,6 +1,7 @@
+import { IJwtPayload } from './../Middleware/authMiddleware';
 import customerModel from "../Models/customerModel.ts";
 import { RequestHandler, type Request, type Response } from "express";
-import customerSchema from "../Validation/customerValidation.ts";
+import customerSchema from "../Validation/customerValidation.ts"
 
 interface IResponse {
     success: boolean, 
@@ -20,14 +21,24 @@ const createCustomer: RequestHandler = async(req: Request, res: Response) => {
     }
     try {
         const { name, email, phone, company, status } = data;
-        const newCustomer = await customerModel.create({
-            name, email, phone, company, status, assignedTo: req.user?.id
-        })
+       const newCustomer = await customerModel.create({
+        name, 
+        email, 
+        phone, 
+        company, 
+        status,
+        assignedTo: req.user!.id,
+       })
+
+        const populatedCustomer = await newCustomer.populate("assignedTo", "name");
         res.status(201).json({
             success: true, 
             message: "Customer Created Successfully", 
-            value: newCustomer,
-        })
+            value: {
+                ...populatedCustomer.toObject(),
+                assignedTo: (populatedCustomer.assignedTo as any).name
+            } 
+        } as IResponse);
 
 
     }catch(e: any) {

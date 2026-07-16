@@ -8,7 +8,7 @@ interface IResponse {
     message: string,
     data?: any
 }
-interface IJwtPayload {
+export interface IJwtPayload {
     id: string, 
     role: string,
 }
