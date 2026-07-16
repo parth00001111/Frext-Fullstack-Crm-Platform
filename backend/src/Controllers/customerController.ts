@@ -51,19 +51,125 @@ const createCustomer: RequestHandler = async(req: Request, res: Response) => {
     }
 }
 
-const getAllCustomers: RequestHandler = (req: Request, res: Response) => {
+const getAllCustomers: RequestHandler = async(req: Request, res: Response) => {
+    console.log("Get all customer hit ho gya")
+    const allCustomers = await customerModel.find();
+    res.status(200).json({
+        success: true, 
+        message: "List of all the customers", 
+        data: allCustomers
+    } as IResponse)
 
 }
 
-const getCustomersById: RequestHandler = (req: Request, res: Response) => {
+const getCustomersById: RequestHandler = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if(!id){
+        res.status(404).json({
+            success: false, 
+            message: "Something's wrong with your id",
+            value: null
+        } as IResponse)
+    }
+    try {
+        
+        const findId = await customerModel.findById(id);
+        if(!findId) {
+            res.status(404).json({
+                success: false, 
+                message: "Provided id does not exists", 
+                value: null
+            } as IResponse)
+        }
+        res.status(200).json({
+            success: true, 
+            message: "customer with id" + findId, 
+            value: findId
+        })
+
+
+    }catch(e: any) {
+        console.log("error: ", e.message);
+        res.status(500).json({
+            success: false, 
+            message: e.message,
+            value: null
+        } as IResponse)
+    }
 
 }
 
-const updateCustomers: RequestHandler = (req: Request, res: Response) => {
+const updateCustomers: RequestHandler = async(req: Request, res: Response) => {
+    const { id } = req.params;
+    if(!id) { 
+        res.status(404).json({
+            success: false, 
+            message: "Enter id properly",
+            value: null
+        } as IResponse)
+    }
+    try {
+        const { name, email, phone, company, status } = req.body
+        const findCustomer = await customerModel.findByIdAndUpdate(
+            id, 
+            {
+                $set: {
+                    ...(name !== undefined ? { name } : {}), 
+                    ...(email !== undefined ? { email }: {}),
+                    ...(phone!== undefined ? { phone }: {}),
+                    ...(company !== undefined ? { company }: {}),
+                    ...(status !== undefined ? { status }: {}),
 
+                }
+            }, {
+                new: true
+            }
+        )
+        if(!findCustomer) {
+            res.status(404).json({
+                success: false, 
+                message: "Customer does not found", 
+                value: null
+            } as IResponse)
+        }
+        res.status(201).json({
+            success: true, 
+            message: "Customer update successfully", 
+            value: findCustomer,
+        } as IResponse)
+    }catch(e: any){
+        console.log("Error: ", e.message);
+        res.status(500).json({
+            success: false, 
+            message: e.message,
+            value: null
+        } as IResponse)
+    }
 }
 
-const deleteCustomers: RequestHandler = (req: Request, res: Response) => {
+const deleteCustomers: RequestHandler = async(req: Request, res: Response) => {
+    const { id } = req.params;
+    if(!id) {
+        res.status(404).json({
+            success: false, 
+            message: "Enter id properly", 
+            value: null
+        } as IResponse)
+    }
+    try {
+        await customerModel.findByIdAndDelete(id);
+        res.status(200).json({
+            success: true, 
+            message: "customer Deleted Successfully",
+        })
+    }catch(e: any) {
+        console.log("error: ", e.message);
+        res.status(500).json({
+            success: false, 
+            message: e.message, 
+            value: null
+        } as IResponse)
+    }
 
 }
 

@@ -13,7 +13,7 @@ const authorize = (...roles: string[]) => {
             } as IResponse)
         }
         if(!roles.includes(req.user.role)){
-            res.status(401).json({
+            return res.status(401).json({
                 success: false,
                 message: "Access Denied", 
                 data: null
