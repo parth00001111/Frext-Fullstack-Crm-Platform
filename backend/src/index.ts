@@ -4,6 +4,7 @@ import dealRouters from "./Routes/dealsRoute.ts"
 import { type Request, type Response } from "express"
 import authRouter from "./Routes/authRoutes"
 import cors from "cors";
+import taskRouters from "./Routes/taskRoutes.ts";
 import customerRouter from "./Routes/customerRoutes.ts"
 import dotenv from "dotenv";
 import connectDb from "./config/db.ts"
@@ -15,6 +16,7 @@ app.use(cors());
 app.use("/api/v1", authRouter)
 app.use("/api/v1", customerRouter);
 app.use("/api/v1", dealRouters);
+app.use("/api/v1", taskRouters)
 
 
 connectDb()

@@ -12,7 +12,7 @@ dealRouters.get("/getDealById/:id", verifyToken, authorize("Manager", "Admin", "
 
 dealRouters.put("/updateDeals/:id", verifyToken, authorize("Manager", "Admin", "Sales"), updateDeal)
 
-dealRouters.delete("/deleteDeals/:id", verifyToken, authorize("Admin"), deleteDeal)
+dealRouters.delete("/deleteDeals/:id", verifyToken, authorize("Admin"), deleteDeal);
 
 
 export default dealRouters;
