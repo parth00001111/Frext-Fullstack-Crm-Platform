@@ -35,7 +35,7 @@ const createTask: RequestHandler = async(req: Request, res: Response) => {
         })
         const populateTask = await newTask.populate("assignedTo", "name");
         res.status(201).json({
-            success: false, 
+            success: true, 
             message: "Task created Successfully",
             value: {
                 ...populateTask.toObject(),

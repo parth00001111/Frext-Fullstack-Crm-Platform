@@ -5,7 +5,8 @@ import { type Request, type Response } from "express"
 import authRouter from "./Routes/authRoutes"
 import cors from "cors";
 import taskRouters from "./Routes/taskRoutes.ts";
-import customerRouter from "./Routes/customerRoutes.ts"
+import customerRouter from "./Routes/customerRoutes.ts";
+import dashBoardRouter from "./Routes/dashBoardRoutes.ts";
 import dotenv from "dotenv";
 import connectDb from "./config/db.ts"
 dotenv.config();
@@ -17,6 +18,7 @@ app.use("/api/v1", authRouter)
 app.use("/api/v1", customerRouter);
 app.use("/api/v1", dealRouters);
 app.use("/api/v1", taskRouters)
+app.use("/api/v1", dashBoardRouter);
 
 
 connectDb()
