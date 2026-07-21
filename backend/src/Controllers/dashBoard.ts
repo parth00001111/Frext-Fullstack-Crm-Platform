@@ -1,5 +1,5 @@
-import { IResponse } from './../Response';
-import { RequestHandler, type Request, type Response } from 'express';
+import { type IResponse } from './../Response';
+import { type RequestHandler, type Request, type Response } from 'express';
 import { userModel } from "../Models/userModel.ts"
 import customerModel from "../Models/customerModel.ts"; 
 import dealsModel from "../Models/dealsModel.ts"

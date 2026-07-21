@@ -1,6 +1,6 @@
-import { IJwtPayload } from './../Middleware/authMiddleware';
+import  { type IJwtPayload } from './../Middleware/authMiddleware';
 import customerModel from "../Models/customerModel.ts";
-import { RequestHandler, type Request, type Response } from "express";
+import { type RequestHandler, type Request, type Response } from "express";
 import customerSchema from "../Validation/customerValidation.ts"
 
 interface IResponse {

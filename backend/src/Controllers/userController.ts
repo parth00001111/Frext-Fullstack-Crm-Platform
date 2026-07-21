@@ -1,10 +1,10 @@
 import { signupSchema, signinSchema } from "../Validation/userValidation.ts";
-import { userModel, IUser } from "../Models/userModel";
+import { userModel, type IUser } from "../Models/userModel";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import { type Request, type Response } from "express";
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 
 dotenv.config();
 

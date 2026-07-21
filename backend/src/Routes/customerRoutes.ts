@@ -6,9 +6,13 @@ import authorize from '../Middleware/roleMiddleware.ts';
 const customerRouter = Router();
 
 customerRouter.post("/createCustomer", verifyToken, authorize("Admin", "Manager", "Sales"), createCustomer);
+
 customerRouter.get("/getAllCustomer", verifyToken, authorize("Admin", "Manager", "Sales"),  getAllCustomers);
+
 customerRouter.get("/getCustomerById/:id", verifyToken, authorize("Admin", "Manager", "Sales"), getCustomersById);
+
 customerRouter.put("/updateCustomers/:id", verifyToken, authorize("Admin", "Manager", "Sales"), updateCustomers);
+
 customerRouter.delete("/deleteCustomers/:id", verifyToken, authorize("Admin"), deleteCustomers);
 
 export default customerRouter

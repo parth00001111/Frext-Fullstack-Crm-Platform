@@ -1,8 +1,8 @@
-import { IJwtPayload } from './../Middleware/authMiddleware';
-import { IResponse } from "../Response.ts"; 
+import { type IJwtPayload } from './../Middleware/authMiddleware';
+import { type IResponse } from "../Response.ts"; 
 import dealSchema from "../Validation/dealValidation.ts"; 
 import dealModel from "../Models/dealsModel.ts";
-import { RequestHandler, type Request, type Response } from "express"; 
+import { type RequestHandler, type Request, type Response } from "express"; 
 import customerModel from '../Models/customerModel.ts';
 
 
