@@ -1,5 +1,5 @@
 import { Router } from "express"; 
-import { createDeal, getAllDeal, getDealById, updateDeal, deleteDeal } from "../Controllers/dealController"
+import { createDeal, getAllDeal, getDealById, updateDeal, deleteDeal } from "../controllers/dealController"
 import { verifyToken } from "../Middleware/authMiddleware";
 import authorize from "../Middleware/roleMiddleware"
 const dealRouters = Router();

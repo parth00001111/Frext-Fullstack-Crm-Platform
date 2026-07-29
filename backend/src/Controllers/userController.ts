@@ -1,5 +1,5 @@
-import { signupSchema, signinSchema } from "../Validation/userValidation.ts";
-import { userModel, type IUser } from "../Models/userModel";
+import { signupSchema, signinSchema } from "../validation/userValidation.ts";
+import { userModel, type IUser } from "../models/userModel";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
@@ -13,8 +13,6 @@ interface IResponse {
     message: string;
     value?: any;
 }
-
-
 const signup: RequestHandler = async (req: Request, res: Response) => {
     console.log("came to signup");
 

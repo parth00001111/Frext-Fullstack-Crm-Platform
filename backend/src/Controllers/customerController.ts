@@ -1,7 +1,7 @@
 import  { type IJwtPayload } from './../Middleware/authMiddleware';
-import customerModel from "../Models/customerModel.ts";
+import customerModel from "../models/customerModel.ts";
 import { type RequestHandler, type Request, type Response } from "express";
-import customerSchema from "../Validation/customerValidation.ts"
+import customerSchema from "../validation/customerValidation.ts"
 
 interface IResponse {
     success: boolean, 

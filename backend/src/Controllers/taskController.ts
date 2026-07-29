@@ -1,8 +1,8 @@
 import { type IResponse } from './../Response';
 import { type RequestHandler, type Request, type Response } from 'express';
 import { type IJwtPayload } from './../Middleware/authMiddleware';
-import schemaTask from "../Validation/taskValidation.ts";
-import taskModel from "../Models/tasksModel.ts";
+import schemaTask from "../validation/taskValidation.ts";
+import taskModel from "../models/tasksModel.ts";
 
 const createTask: RequestHandler = async(req: Request, res: Response) => {
     console.log("create task hit ho gya")

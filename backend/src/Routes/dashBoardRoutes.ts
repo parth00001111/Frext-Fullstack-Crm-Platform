@@ -1,4 +1,4 @@
-import getDashBoard from "../Controllers/dashBoard.ts";
+import getDashBoard from "../controllers/dashBoard.ts";
 import authorize from "../Middleware/roleMiddleware.ts";
 import { verifyToken } from "./../Middleware/authMiddleware.ts";
 import { Router } from "express";

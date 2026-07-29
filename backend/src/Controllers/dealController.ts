@@ -1,9 +1,9 @@
 import { type IJwtPayload } from './../Middleware/authMiddleware';
 import { type IResponse } from "../Response.ts"; 
-import dealSchema from "../Validation/dealValidation.ts"; 
-import dealModel from "../Models/dealsModel.ts";
+import dealSchema from "../validation/dealValidation.ts"; 
+import dealModel from "../models/dealsModel.ts";
 import { type RequestHandler, type Request, type Response } from "express"; 
-import customerModel from '../Models/customerModel.ts';
+import customerModel from '../models/customerModel.ts';
 
 
 const createDeal: RequestHandler = async (req: Request, res: Response) => {

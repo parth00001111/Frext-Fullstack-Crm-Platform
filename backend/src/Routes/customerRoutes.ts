@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createCustomer, deleteCustomers, getAllCustomers, getCustomersById, updateCustomers } from '../Controllers/customerController.ts';
+import { createCustomer, deleteCustomers, getAllCustomers, getCustomersById, updateCustomers } from '../controllers/customerController.ts';
 import { verifyToken } from '../Middleware/authMiddleware.ts';
 import authorize from '../Middleware/roleMiddleware.ts';
 

@@ -1,12 +1,12 @@
 import express from "express"; 
 import { type Express } from "express"
-import dealRouters from "./Routes/dealsRoute.ts"
+import dealRouters from "./routes/dealsRoute.ts"
 import { type Request, type Response } from "express"
-import authRouter from "./Routes/authRoutes"
+import authRouter from "./routes/authRoutes"
 import cors from "cors";
-import taskRouters from "./Routes/taskRoutes.ts";
-import customerRouter from "./Routes/customerRoutes.ts";
-import dashBoardRouter from "./Routes/dashBoardRoutes.ts";
+import taskRouters from "./routes/taskRoutes.ts";
+import customerRouter from "./routes/customerRoutes.ts";
+import dashBoardRouter from "./routes/dashBoardRoutes.ts";
 import dotenv from "dotenv";
 import connectDb from "./config/db.ts"
 dotenv.config();
