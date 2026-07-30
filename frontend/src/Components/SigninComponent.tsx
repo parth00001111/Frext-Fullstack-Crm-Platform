@@ -1,66 +1,80 @@
     import React, { useState, type ChangeEvent, type FormEvent } from 'react'
-    import "../index.css";
-    import { useNavigate } from "react-router-dom";
-    import axios from 'axios';
-    interface FormData { 
+    import { useNavigate } from 'react-router-dom';
+    import logoo from "../assets/logo.png"
+    import axios from "axios"
+    import SignupInput from './SignupInput';
+    interface IFormData {
         email: string, 
         password: string,
-        
     }
+
     const SigninComponent: React.FC = () => {
-        const [formData, setFormData] = useState<FormData>({    
-            email:"", 
+        const [formData, setFormData] = useState({
+            email: "", 
             password: "",
         })
-        
-        const [loading, setLoading] = useState<boolean>(false);
         const navigate = useNavigate();
+        const [loading, setLoading] = useState<boolean>(false);
 
         const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             setLoading(true);
+            if(!formData.email || !formData.password){
+                alert("Fil all the fields");
+            }
             try {
-                const response = await axios.post(`http://localhost:5000/api/v1/signin`, formData);
-                console.log("signin Done", response.data);
-                alert("Login successfully")
-                navigate("/signin")
 
-            }catch(err: any) {
-                console.log("Error", err.message);
-                alert(err.message || "Somethings wrong in this");
+                const response = await axios.post(`http://localhost:5000/api/v1/signin`, formData);
+                console.log("Signin Successfully", response.data);
+                alert("Signin Successfully");
+                navigate("/dashBoard")
                 
-            }finally {
+
+            }catch(e: any) {
+                if(axios.isAxiosError(e) && e.response) {
+                    if(e.response.status === 404){
+                        alert("User does not exist. Create new account")
+                        navigate("/signup")
+
+                    }else if(e.response.status === 401) {
+                        alert("Incorrect password");
+                    }else {
+                        alert(e.response.data?.message || "Something went wrong")
+                    }
+                }else {
+                    alert("Cannot connect to the server")
+                }
+                
+            }finally{
                 setLoading(false)
             }
+
         }
-        const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+        const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
             const { name, value } = e.target;
-            setFormData(prev => ({ ...prev, [name]: value}))
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }))
+
         }
+
     return (
-        <div className={"mainContainer"}>
-        <div style={{height:"300px", width:"400px"}} className="inputbox">
-            <form onSubmit={handleSubmit} >
-                <p style={{fontSize:"40px", marginLeft:"105px"}}>Sign in</p>
-                
-                <div>
-                    <input style={{height:"40px", width:"350px", marginTop:"20px", borderRadius:"10px", paddingLeft:"5px", fontSize:"16px", border:"2px solid grey", outline:"none"}} type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter email..." />
-                </div>
-                <div>
-                    <input style={{height:"40px", width:"350px", marginTop:"20px", borderRadius:"10px", paddingLeft:"5px", fontSize:"16px", border:"2px solid grey", outline:"none"}} type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter password..." />
-                </div>
+        <div className="main-div">
+            <div className="signinDiv">
+                <form onSubmit={ handleSubmit }>
+                    <img className="logoo" src={ logoo } alt="" />
+                    <SignupInput name="email" value={ formData.email } onChange={ handleChange} type="email" placeholder="Enter email..."/>
+                    <SignupInput name="password" value={ formData.password } onChange={ handleChange} type="password" placeholder="Enter password..." />
+                    <button className="button" type="submit" >Signin</button>
 
-                <div>
-                    <button type="submit" className="signupButton">Sign in</button>
-                </div>
-                <div style={{marginLeft:"70px", marginTop:"10px"}}>
-                    <span>Don't have an account?  </span>
-                    <span style={{cursor:"pointer", color:"#4781b0"}} onClick={() => navigate("/signup")} >Signup</span>
-                </div>
-                
-            </form>
-
-        </div>
+                    <div style={{marginTop:"10px", fontSize:"17px"}}>
+                <span style={{marginLeft:"60px"}}>Create a new account.</span>
+                <span onClick={() => navigate("/signup")} style={{marginLeft:"10px", color:"rgb(30, 132, 205)", cursor: "pointer"}}>Sigup</span>
+            </div>
+                </form>
+            </div>
+        
         </div>
     )
     }

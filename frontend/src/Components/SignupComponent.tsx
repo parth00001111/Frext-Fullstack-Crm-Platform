@@ -1,75 +1,98 @@
-    import React, { useState, type ChangeEvent, type FormEvent } from 'react'
-    import "../index.css";
-    import { useNavigate } from "react-router-dom";
-    import axios from 'axios';
-    interface FormData {
-        name: string, 
-        role: string, 
-        email: string, 
-        password: string,
-        
-    }
-    const SignupComponent: React.FC = () => {
-        const [formData, setFormData] = useState<FormData>({
-            name: "", 
-            role:"",
-            email:"", 
-            password: "",
-        })
-        
-        const [loading, setLoading] = useState<boolean>(false);
-        const navigate = useNavigate();
+import React, { useState, type ChangeEvent, type FormEvent } from 'react'
+import SignupInput from './SignupInput';
+import axios from "axios";
+import logo from "../assets/logo.png"
+import { useNavigate } from 'react-router-dom';
 
-        const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            setLoading(true);
-            try {
-                const response = await axios.post(`http://localhost:5000/api/v1/signup`, formData);
-                console.log("signup create", response.data);
-                alert("Account created successfully")
-                navigate("/signin")
+interface IFormData {
+  name: string, 
+  role: string, 
+  email: string, 
+  password: string,
+}
 
-            }catch(err: any) {
-                console.log("Error", err.message);
-                alert(err.message || "Somethings wrong in this");
-                
-            }finally {
-                setLoading(false)
-            }
-        }
-        const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-            const { name, value } = e.target;
-            setFormData(prev => ({ ...prev, [name]: value}))
-        }
-    return (
-        <div className={"mainContainer"}>
-        <div className="inputbox">
-            <form onSubmit={handleSubmit} >
-                <p style={{fontSize:"40px", marginLeft:"105px"}}>Sign up</p>
-                <div>
-                    <input className="inputfield" type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter name..." />
-                </div>
-                <div>
-                    <input className="inputfield" type="text" name="role" value={formData.role} onChange={handleChange} placeholder="Enter role..." />
-                </div>
-                <div>
-                    <input className="inputfield" type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter email..." />
-                </div>
-                <div>
-                    <input className="inputfield" type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter password..." />
-                </div>
-                <div>
-                    <button type="submit" className="signupButton">Sign up</button>
-                </div>
-                <div style={{marginTop:"20px"}}>
-                    <span style={{marginLeft:"55px"}}>Already have an account?</span>
-                    <span onClick={() => navigate("/signin")} style={{marginLeft:"5px", color:"#4781b0", cursor:"pointer"}}>Login</span>
-                </div>
-            </form>
+const SignupComponent: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: "", 
+    role: "", 
+    email: "", 
+    password: "", 
+  })
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-        </div>
-        </div>
-    )
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    if(!formData.email || !formData.password || !formData.name || !formData.role) {
+      alert("Fill all field")
     }
 
-    export default SignupComponent
+    try {
+      const response = await axios.post(`http://localhost:5000/api/v1/signup`, formData)
+      console.log("Signup Successfully", response.data);
+      alert("Signup Successfully")
+      navigate("/signin")
+      
+
+    }catch(e: any) {
+      console.log(e.message);
+      
+      alert(e.message);
+      const message = e.response || "Something went wrong";
+      if(axios.isAxiosError(e) && e.response) {
+        if(e.response.status === 409) {
+          alert("User Already exists")
+          navigate("/signin");
+
+        }else {
+          alert(e.response.data?.message || "Something went wrong");
+        }
+      } else if (axios.isAxiosError(e) && e.request) {
+          alert("Not able to connect with the server. Check your internet.");
+
+      }else {
+        alert("Something went wrong")
+      }
+    }finally {
+      setLoading(false)
+    }
+
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value} = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+
+  }
+
+
+  return (
+    <div className="main-div">
+      <div className="signupDiv">
+
+          <form onSubmit={handleSubmit}>
+            <img className="logo" src={ logo } alt="" />
+            <SignupInput type="text" placeholder="Enter name..." value={ formData.name } onChange={ handleChange } name="name"  />
+            <SignupInput type="text" placeholder="Enter role..." value={ formData.role } onChange={ handleChange } name="role"  />
+            <SignupInput type="email" placeholder="Enter email..." value={ formData.email } onChange={ handleChange } name="email"  />
+            <SignupInput type="password" placeholder="Enter password..." value={ formData.password } onChange={ handleChange } name="password"  />
+            <button className="button" type="submit">Sign up</button>
+
+           <div style={{marginTop:"10px", fontSize:"17px"}}>
+            <span style={{marginLeft:"50px"}}>Already have an account?</span>
+            <span onClick={() => navigate("/signin")} style={{marginLeft:"10px", color:"rgb(30, 132, 205)", cursor: "pointer"}}>Login</span>
+           </div>
+           
+          </form>
+
+      </div>
+      
+    </div>
+  )
+}
+
+export default SignupComponent
