@@ -43,7 +43,7 @@ export const verifyToken: RequestHandler = (req: Request, res: Response, next: N
     } as IResponse);
   }
 
-  const secret = process.env.JWT_SECRET;
+  const secret = process.env.JWT_SECRET
   if (!secret) {
     return res.status(500).json({
       success: false,
@@ -53,7 +53,7 @@ export const verifyToken: RequestHandler = (req: Request, res: Response, next: N
   }
 
   try {
-    const decode = jwt.verify(token, secret) as unknown as IJwtPayload;
+    const decode = jwt.verify(token, secret) as unknown as IJwtPayload
     req.user = decode;
     next();
   } catch (e: unknown) {

@@ -1,82 +1,63 @@
-*{
-  margin: 0;
-  padding: 0;
+@import "tailwindcss";
+
+* {
   box-sizing: border-box;
 }
 
-.main-div {
-  display: flex;
-  justify-content: center;  
-  height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  width: 100%;
-  background-color: rgb(30, 132, 205);
-
-}
-.signupDiv {
-  display: flex;
-  justify-content: center;
-  height: 600px;
-  width: 500px;
-  background: #fff;
-  margin-top: 150px;
-  border-radius: 10px;
-  
-  
-}
-.logo{
-  height: 80px;
-  margin-top: 30px;
-  padding-left: 80px;
-  margin-left: 40px;
-  margin-bottom: 20px;
-}
-.inputV {
-  height: 50px;
-  width: 350px;
-  border-radius: 10px;
-  
-  border: 2px solid grey;
-  padding-left: 15px;
-  font-size: 20px;
-}
-.inputV:focus{
-  border: 2px solid rgb(30, 132, 205);
-  outline:  none;
-}
-.inputField {
-  margin-top: 20px;
-}
-.button {
-  height: 50px;
-  width: 350px;
-  border-radius: 10px;
-  border:none;
-  background-color: rgb(30, 132, 205);
-  margin-top: 20px;
-  font-size: 20px;
-  color: white;
-
-}
-.button:hover{
-  background-color: rgb(226, 43, 43);
+html,
+body,
+#root {
+  height: 100%;
 }
 
-.logoo{
-  height: 80px;
-  margin-left: 125px;
-  margin-top: 20px;
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #05070d;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(45, 212, 191, 0.08) 1px, transparent 0);
+  background-size: 28px 28px;
+  color: #e6ebf5;
+  min-height: 100vh;
 }
 
-.signinDiv {
-  display: flex;
-  height: 400px;
-  width: 500px;
-  background-color: #fff;
-  margin-top: 250px;
-  border-radius: 10px;
-  justify-content: center;
-  
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2740;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2dd4bf55;
+}
 
+.glass {
+  background: rgba(15, 21, 36, 0.65);
+  border: 1px solid rgba(45, 212, 191, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
 
+.glass-input {
+  background: rgba(10, 14, 26, 0.6);
+  border: 1px solid rgba(45, 212, 191, 0.15);
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: rgba(45, 212, 191, 0.6);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.12);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #2dd4bf 0%, #5eead4 50%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

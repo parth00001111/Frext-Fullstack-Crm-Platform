@@ -1,35 +1,35 @@
-import mongoose, { model, Schema, Document } from "mongoose"; 
+import mongoose, { model, Schema, Document } from "mongoose";
 
-interface IActivityLog extends Document {
-    userId: mongoose.Types.ObjectId,
-    action: string,
-    entityType: "Customer" | "Deal" | "Task" | "Note",
-    entityId: mongoose.Types.ObjectId,
+export interface INote extends Document {
+    content: string;
+    entityType: "Customer" | "Deal" | "Task";
+    entityId: mongoose.Types.ObjectId;
+    createdBy: mongoose.Types.ObjectId;
 }
 
-const activityLogSchema = new Schema<IActivityLog>({
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    action: {
+const noteSchema = new Schema<INote>({
+    content: {
         type: String,
         required: true,
         trim: true,
     },
     entityType: {
         type: String,
-        enum: ["Customer", "Deal", "Task", "Note"],
+        enum: ["Customer", "Deal", "Task"],
         required: true,
     },
     entityId: {
         type: Schema.Types.ObjectId,
         required: true,
     },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
 }, {
     timestamps: true
 })
 
-const activityLogModel = model<IActivityLog>("ActivityLog", activityLogSchema);
-export default activityLogModel;
+const noteModel = model<INote>("Note", noteSchema);
+export default noteModel;

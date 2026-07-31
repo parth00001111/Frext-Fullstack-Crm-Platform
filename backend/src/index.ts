@@ -7,6 +7,8 @@ import cors from "cors";
 import taskRouters from "./routes/taskRoutes.ts";
 import customerRouter from "./routes/customerRoutes.ts";
 import dashBoardRouter from "./routes/dashBoardRoutes.ts";
+import noteRouter from "./routes/noteRoutes.ts";
+import activityRouter from "./routes/activityRoutes.ts";
 import dotenv from "dotenv";
 import connectDb from "./config/db.ts"
 dotenv.config();
@@ -26,6 +28,10 @@ app.use("/api/v1", dealRouters);
 app.use("/api/v1", taskRouters)
 
 app.use("/api/v1", dashBoardRouter);
+
+app.use("/api/v1", noteRouter);
+
+app.use("/api/v1", activityRouter);
 
 
 
