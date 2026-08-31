@@ -15,12 +15,12 @@ dotenv.config();
 
 const app: Express = express()
 
-app.use(express.json());
+app.disable("etag");
 
+app.use(express.json());
 app.use(cors());
 
 app.use("/api/v1", authRouter)
-
 app.use("/api/v1", customerRouter);
 
 app.use("/api/v1", dealRouters);
@@ -43,7 +43,17 @@ app.get("/", (req: Request, res: Response) => {
         message: "server is running"
     })
 })
+app.use((req, res, next) => {
+    res.set("Cache-Control", "no-store");
+    next();
+});
 
+app.use((req, res, next) => {
+    res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    res.set("Pragma", "no-cache");
+    res.set("Expires", "0");
+    next();
+});
 
 app.listen(port, () => {
     console.log(`server is running on port: ${port}`)

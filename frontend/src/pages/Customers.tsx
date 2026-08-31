@@ -15,7 +15,7 @@ import Modal from "../components/UI/Modal";
 import Loader from "../components/UI/Loader";
 import Badge from "../components/UI/Badge";
 
-const emptyForm = { name: "", email: "", phone: "", company: "", status: "Active" };
+const emptyForm = { name: "", email: "", phone: "", company: "", status: "new" };
 
 const Customers = () => {
   const [customers, setCustomers] = useState<ICustomer[]>([]);
@@ -30,9 +30,20 @@ const Customers = () => {
     setLoading(true);
     try {
       const res = await getAllCustomersApi();
-      const data = (res.data as any).data || res.data.value || [];
+
+      // ---- DEBUG (temporary, hata dena baad me) ----
+      console.log("=== DEBUG START ===");
+      console.log("Full res object:", res);
+      console.log("res.data:", res.data);
+      console.log("res.data.value:", (res.data as any)?.value);
+      console.log("=== DEBUG END ===");
+      // ------------------------------------------------
+
+      const data = (res.data as any).data || (res.data as any).value || [];
+      console.log("FINAL DATA TO SET:", data, "length:", data.length);
       setCustomers(data);
     } catch (e: any) {
+      console.log("FETCH ERROR:", e);
       toast.error(e?.response?.data?.message || "Could not load customers");
     } finally {
       setLoading(false);
@@ -75,6 +86,7 @@ const Customers = () => {
       setModalOpen(false);
       fetchCustomers();
     } catch (e: any) {
+      console.log("SUBMIT ERROR:", e);
       toast.error(e?.response?.data?.message || "Something went wrong");
     } finally {
       setSaving(false);
@@ -207,8 +219,9 @@ const Customers = () => {
               onChange={(e) => setForm({ ...form, status: e.target.value })}
               className="glass-input rounded-lg px-3.5 py-2.5 text-sm text-slate-100"
             >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="closed">Closed</option>
             </select>
           </div>
           <Button type="submit" loading={saving} className="w-full mt-1">
