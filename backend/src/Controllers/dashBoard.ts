@@ -1,9 +1,9 @@
 import { type IResponse } from './../Response';
 import { type RequestHandler, type Request, type Response } from 'express';
-import { userModel } from "../models/userModel.ts"
-import customerModel from "../models/customerModel.ts"; 
-import dealsModel from "../models/dealsModel.ts"
-import taskModel from "../models/tasksModel.ts";
+import { userModel } from "../Models/userModel.ts"
+import customerModel from "../Models/customerModel.ts";
+import dealsModel from "../Models/dealsModel.ts"
+import taskModel from "../Models/tasksModel.ts";
 import { success } from 'zod';
 
 

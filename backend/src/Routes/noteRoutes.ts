@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createNote, getAllNotes, getNotesByEntity, updateNote, deleteNote } from "../controllers/noteController.ts";
+import { createNote, getAllNotes, getNotesByEntity, updateNote, deleteNote } from "../Controllers/noteController.ts";
 import { verifyToken } from "../Middleware/authMiddleware.ts";
 import authorize from "../Middleware/roleMiddleware.ts";
 

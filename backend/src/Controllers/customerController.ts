@@ -1,7 +1,7 @@
-import customerModel from "../models/customerModel.ts";
-import activityLogModel from "../models/activityModel.ts";
+import customerModel from "../Models/customerModel.ts";
+import activityLogModel from "../Models/activityModel.ts";
 import { type RequestHandler, type Request, type Response } from "express";
-import customerSchema from "../validation/customerValidation.ts";
+import customerSchema from "../Validation/customerValidation.ts";
 
 interface IResponse {
   success: boolean;

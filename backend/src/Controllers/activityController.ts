@@ -1,5 +1,5 @@
 import { type RequestHandler, type Request, type Response } from "express";
-import activityLogModel from "../models/activityModel.ts";
+import activityLogModel from "../Models/activityModel.ts";
 
 interface IResponse {
     success: boolean,

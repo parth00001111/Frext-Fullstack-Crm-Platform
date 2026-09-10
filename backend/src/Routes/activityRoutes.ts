@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllActivities, getActivityByEntity } from "../controllers/activityController.ts";
+import { getAllActivities, getActivityByEntity } from "../Controllers/activityController.ts";
 import { verifyToken } from "../Middleware/authMiddleware.ts";
 import authorize from "../Middleware/roleMiddleware.ts";
 

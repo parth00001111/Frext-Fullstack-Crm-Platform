@@ -1,5 +1,5 @@
-import { signupSchema, signinSchema } from "../validation/userValidation.ts";
-import { userModel, type IUser } from "../models/userModel";
+import { signupSchema, signinSchema } from "../Validation/userValidation.ts";
+import { userModel, type IUser } from "../Models/userModel";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
@@ -14,7 +14,7 @@ interface IResponse {
     value?: any;
 }
 const signup: RequestHandler = async (req: Request, res: Response) => {
-    console.log("came to signup");
+    if (process.env.ALLOW_SIGNUP === "false" || (process.env.NODE_ENV === "production" && process.env.ALLOW_SIGNUP !== "true")) { return res.status(403).json({ success: false, message: "Public signup is disabled. Contact your administrator." }); }
 
     const { success, error, data } = signupSchema.safeParse(req.body);
     if (!success) {
@@ -51,7 +51,7 @@ const signup: RequestHandler = async (req: Request, res: Response) => {
         res.status(201).json({
             success: true,
             message: "User created successfully",
-            value: createUser,
+            value: { id: createUser._id, name: createUser.name, email: createUser.email, role: createUser.role },
         } as IResponse);
 
     } catch (e: any) {

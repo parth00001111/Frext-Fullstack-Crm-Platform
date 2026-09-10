@@ -1,5 +1,5 @@
 import { type RequestHandler, type Request, type Response } from "express";
-import noteModel from "../models/noteModel.ts";
+import noteModel from "../Models/noteModel.ts";
 
 interface IResponse {
     success: boolean,

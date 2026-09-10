@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec tsx ./src/index.ts"
+    "dev": "nodemon --exec tsx ./src/index.ts",
+    "build": "bun build.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +25,7 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
