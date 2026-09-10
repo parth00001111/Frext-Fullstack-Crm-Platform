@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login";
+import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
@@ -24,11 +25,12 @@ function App() {
         }}
       />
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <ProtectedRoute title="Dashboard">
               <Dashboard />
